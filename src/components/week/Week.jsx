@@ -1,5 +1,5 @@
 import React from 'react';
-import Day from '../day/Day';
+import Day from '../day/Day.jsx';
 
 import './week.scss';
 

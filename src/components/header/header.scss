@@ -1,30 +1,54 @@
 .header {
   display: flex;
-  height: 60px;
-  padding: 0 48px;
-  align-items: center;
+  padding: 10px;
+  padding-left: 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 21;
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .create-event-btn {
-  padding: 0 16px;
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(168, 158, 158);
+  border-radius: 50px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  width: 150px;
+  height: 45px;
+}
 
-  &__icon {
-    margin-right: 8px;
-  }
+.button-image {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
 }
 
 .navigation {
-  &__today-btn {
-    margin-left: 32px;
-    padding: 0 16px;
-  }
+  display: flex;
+  align-items: center;
+  width: auto;
+  justify-content: space-between;
+  margin-left: 50px;
 
-  &__nav-icon {
-    font-size: 16px;
-    margin-left: 20px;
+  &__today-btn {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-right: 60px;
   }
 
   &__displayed-month {
-    margin-left: 10px;
+    font-size: 26px;
+    margin-left: 60px;
+  }
+
+  &__nav-icon {
+    margin-left: 30px;
   }
 }

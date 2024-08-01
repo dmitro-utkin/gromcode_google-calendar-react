@@ -1,5 +1,5 @@
 import React from 'react';
-import Hour from '../hour/Hour';
+import Hour from '../hour/Hour.jsx';
 
 import './day.scss';
 

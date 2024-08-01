@@ -1,73 +1,110 @@
 .calendar {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 60px);
+  padding-top: 200px;
+
+  &__time-label {
+    font-size: 10px;
+    position: fixed;
+    z-index: 21;
+    top: 180px;
+    left: 2px;
+  }
 
   &__header {
     display: flex;
-    height: 100px;
-    padding-left: 48px;
-  }
-
-  &__body {
-    display: flex;
-    overflow: auto;
-  }
-
-  &__week-container {
-    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    top: 60px;
     width: 100%;
-    height: fit-content;
-  }
-
-  &__time-scale {
-    height: 100%;
-    width: 48px;
+    height: 130px;
+    background: rgb(255, 255, 255);
+    z-index: 19;
+    padding-left: 47px;
   }
 
   &__week {
     display: flex;
-    flex: 1;
+    width: 100%;
   }
 
   &__day {
-    position: relative;
-    flex: 1;
-    border-left: 1px solid #eee;
+    display: grid;
+    grid-template-rows: repeat(24, 60px);
+    width: 100%;
   }
-
   &__time-slot {
-    height: 59px;
+    border: 1px solid rgba(204, 204, 204, 1);
+    height: 61px;
+    border-right: none;
+    border-top: none;
     position: relative;
-    border-bottom: 1px solid #eee;
+
+    &:hover {
+      background-color: rgb(208, 229, 248);
+    }
+
+    &:first-child {
+      border-top: 1px solid rgba(204, 204, 204, 1);
+    }
   }
 
-  &__day-label {
-    flex: 1;
+  &:last-child {
+    border-right: 1px solid rgba(204, 204, 204, 1);
   }
 }
 
 .day-label {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  opacity: 0.6;
+  text-transform: uppercase;
+  margin: 20px auto;
+  position: relative;
 
   &__day-name {
-    font-size: 14px;
-    text-transform: uppercase;
+    position: absolute;
+    margin-bottom: 18px;
   }
 
   &__day-number {
-    font-size: 22px;
+    position: absolute;
+    top: 40px;
+    font-size: 34px;
   }
 }
 
-.red-line {
+.today-number {
+  background-color: rgb(0, 153, 255);
+  color: rgb(255, 255, 255);
+  border-radius: 50px;
+  width: 60px;
+  line-height: 60px;
+  text-align: center;
+  top: 30px;
+}
+
+.today-name {
+  color: rgb(0, 153, 255);
+  margin-bottom: 10px;
+}
+
+.time-line {
+  display: flex;
+  align-items: center;
   position: absolute;
-  width: 100%;
-  border-top: 2px solid red;
-  z-index: 5;
+  z-index: 18;
+
+  &__circle {
+    width: 5px;
+    height: 5px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(255, 0, 0);
+  }
+
+  &__rectangle {
+    height: 0.5px;
+    width: calc(100vw / 7 - 15px);
+    border: none;
+    background-color: rgb(255, 0, 0);
+  }
 }
