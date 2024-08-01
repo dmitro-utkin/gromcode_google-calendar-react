@@ -17,7 +17,7 @@ class Calendar extends Component {
 
     return (
       <section className="calendar">
-        <div class="calendar__time-label">GMT +02</div>
+        <div className="calendar__time-label">GMT +02</div>
         <Navigation weekDates={weekDates} />
         <div className="calendar__body">
           <div className="calendar__week-container">
