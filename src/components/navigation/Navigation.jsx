@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react';
-
-import { getItem } from '../../utils/storage.js';
-import { generateWeekRange, days } from '../../utils/dateUtils.js';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { days } from '../../utils/dateUtils.js';
+import classnames from 'classnames';
 import './navigation.scss';
 
-const Navigation = () => {
-  const [weekDates, setWeekDates] = useState([]);
-  const [today] = useState(new Date());
-
-  useEffect(() => {
-    const displayedWeekStart = getItem('displayedWeekStart');
-    const weekDays = generateWeekRange(displayedWeekStart);
-    setWeekDates(weekDays);
-  }, []);
+const Navigation = ({ weekDates }) => {
+  const today = new Date();
 
   return (
     <header className="calendar__header">
       {weekDates.map((dayDate) => {
         const isToday = dayDate.toDateString() === today.toDateString();
-        const todayNameClass = isToday ? 'today-name' : '';
-        const todayDayClass = isToday ? 'today-number' : '';
+        const dayNameClassName = classnames('day-label__day-name', {
+          'today-name': isToday,
+        });
+        const dayNumberClassName = classnames('day-label__day-number', {
+          'today-number': isToday,
+        });
 
         return (
-          <div className="calendar__day-label day-label" key={dayDate}>
-            <span className={`day-label__day-name ${todayNameClass}`}>{days[dayDate.getDay()]}</span>
-            <span className={`day-label__day-number ${todayDayClass}`}>{dayDate.getDate()}</span>
+          <div key={dayDate} className="calendar__day-label day-label">
+            <span className={dayNameClassName}>{days[dayDate.getDay()]}</span>
+            <span className={dayNumberClassName}>{dayDate.getDate()}</span>
           </div>
         );
       })}
@@ -32,19 +29,8 @@ const Navigation = () => {
   );
 };
 
+Navigation.propTypes = {
+  weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
+};
+
 export default Navigation;
-
-// const Navigation = ({ weekDates }) => {
-//   return (
-//     <header className="calendar__header">
-//       {weekDates.map((dayDate) => (
-//         <div className="calendar__day-label day-label">
-//           <span className="day-label__day-name">{days[dayDate.getDay()]}</span>
-//           <span className="day-label__day-number">{dayDate.getDate()}</span>
-//         </div>
-//       ))}
-//     </header>
-//   );
-// };
-
-// export default Navigation;
