@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Modal  from '../modal/Modal';
+import Modal from '../modal/Modal';
 import { getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
 import './header.scss';
 
@@ -9,7 +9,17 @@ const Header = ({ weekStartDate, setWeekStartDate }) => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
+  const handlePrevWeek = () => {
+    const prevWeekStartDate = new Date(weekStartDate);
+    prevWeekStartDate.setDate(prevWeekStartDate.getDate() - 7);
+    setWeekStartDate(prevWeekStartDate);
+  };
 
+  const handleNextWeek = () => {
+    const nextWeekStartDate = new Date(weekStartDate);
+    nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
+    setWeekStartDate(nextWeekStartDate);
+  };
 
   return (
     <header className="header">
@@ -26,14 +36,14 @@ const Header = ({ weekStartDate, setWeekStartDate }) => {
         Create
       </button>
       <div className="navigation">
-        <button className="navigation__today-btn button">Today</button>
-        <button className="icon-button navigation__nav-icon">
+        <button className="navigation__today-btn button" onClick={() => setWeekStartDate(getWeekStartDate(new Date()))}>Today</button>
+        <button className="icon-button navigation__nav-icon" onClick={handlePrevWeek}>
           <i className="fas fa-chevron-left"></i>
         </button>
-        <button className="icon-button navigation__nav-icon">
+        <button className="icon-button navigation__nav-icon" onClick={handleNextWeek}>
           <i className="fas fa-chevron-right"></i>
         </button>
-        <span className="navigation__displayed-month"></span>
+        <span className="navigation__displayed-month">{getDisplayedMonth(weekStartDate)}</span>
       </div>
       {showModal && <Modal onClose={closeModal} />} 
     </header>

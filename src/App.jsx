@@ -7,13 +7,13 @@ import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 import './common.scss';
 
 const App = () => {
-  const [weekStartDate, setWeekStartDate] = useState(new Date());
+  const [weekStartDate, setWeekStartDate] = useState(getWeekStartDate(new Date()));
 
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   return (
     <>
-      <Header />
+      <Header weekStartDate={weekStartDate} setWeekStartDate={setWeekStartDate} />
       <Calendar weekDates={weekDates} />
     </>
   );

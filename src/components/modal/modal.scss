@@ -40,22 +40,52 @@
 }
 
 .event-form {
-  display: flex;
-  flex-direction: column;
+  // padding-left: 40px;
 
   &__field {
     margin: 8px;
     border: none;
   }
 
+  input[name='title'] {
+    border-bottom: 2px solid rgb(30, 144, 255);
+    width: -webkit-fill-available;
+    margin-bottom: 50px;
+  }
+
+  &__time {
+    margin-bottom: 50px;
+
+    input[type='time'] {
+      margin-left: 10px;
+    }
+
+    input[type='time']::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+
+    input[type='time']::-webkit-datetime-edit-fields-wrapper,
+    input[type='time']::-webkit-datetime-edit-text {
+      color: transparent;
+    }
+
+    input[type='time']::-webkit-datetime-edit-hour-field,
+    input[type='time']::-webkit-datetime-edit-minute-field {
+      color: black;
+    }
+  }
+
+  textarea {
+    width: -webkit-fill-available;
+  }
+
   &__submit-btn {
-    margin: 8px;
+    display: block;
     margin-left: auto;
     border: none;
-    color: #fff;
-    background-color: cornflowerblue;
-    border: none;
-    padding: 8px 16px;
+    background-color: rgb(30, 144, 255);
+    padding: 10px 20px;
     border-radius: 8px;
+    cursor: pointer;
   }
 }
