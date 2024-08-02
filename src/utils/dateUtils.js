@@ -3,11 +3,7 @@ import moment from "moment";
 export const getWeekStartDate = (date) => {
   const dateCopy = new Date(date);
   const dayOfWeek = dateCopy.getDay();
-  const difference =
-    dayOfWeek === 0
-      ? -6 // for Sunday
-      : 1 - dayOfWeek;
-
+  const difference = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
   const monday = new Date(dateCopy.setDate(date.getDate() + difference));
   return new Date(monday.getFullYear(), monday.getMonth(), monday.getDate());
 };
@@ -49,8 +45,8 @@ export const months = [
 ];
 
 export const getDisplayedMonth = date => {
-  const weekStart = getWeekStartDate(date);
-  const weekEnd = moment(date).add('days', 6).result();
+  const weekStart = moment(date);
+  const weekEnd = moment(date).add(6, 'days');
   const startMonth = weekStart.getMonth();
   const startYear = weekStart.getFullYear();
   const endMonth = weekEnd.getMonth();
