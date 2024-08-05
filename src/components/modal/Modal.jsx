@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
 
-const Modal = ({ onClose }) => {
+const Modal = ({ onClose, setEvents }) => {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -17,15 +17,15 @@ const Modal = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    setEvents((prevEvents) => [...prevEvents, formData]);
+    onClose();  
   };
 
   return (
     <div className="modal overlay">
       <div className="modal__content">
         <div className="create-event">
-          <button onClick={onClose } className="create-event__close-btn">+</button>
+          <button onClick={ onClose } className="create-event__close-btn">+</button>
           <form className="event-form" onSubmit={handleSubmit}>
             <input
               type="text"

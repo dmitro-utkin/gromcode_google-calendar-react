@@ -5,8 +5,8 @@
     font-size: 10px;
     position: fixed;
     z-index: 21;
-    top: 180px;
-    left: 2px;
+    top: 177px;
+    left: 3px;
   }
 
   &__header {
@@ -19,6 +19,11 @@
     background: rgb(255, 255, 255);
     z-index: 19;
     padding-left: 47px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  &__body {
+    margin-top: -11px;
   }
 
   &__week {

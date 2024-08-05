@@ -1,18 +1,26 @@
 .event {
+  padding: 5px;
+  width: calc(100% - 10px);
+  flex-direction: column;
   position: absolute;
-  width: 80%;
-  background-color: cornflowerblue;
-  z-index: 1;
-  border-radius: 8px;
-  padding: 8px;
-  color: #fff;
+  z-index: 10;
+  overflow: auto;
+  background-color: rgb(0, 153, 255);
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 
   &__title {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  &__time {
+    font-size: 12px;
+    margin-bottom: 5px;
   }
 
   &:hover {
