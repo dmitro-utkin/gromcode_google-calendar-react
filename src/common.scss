@@ -38,17 +38,6 @@
   z-index: 10;
 }
 
-.popup {
-  &__content {
-    position: absolute;
-    z-index: 11;
-    background: #fff;
-    padding: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-}
-
 .hidden {
   display: none;
 }
@@ -58,6 +47,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    position: absolute;
+    border: 1px solid #ccc;
     max-width: 200px;
     align-items: center;
     gap: 20px;
