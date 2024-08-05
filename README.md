@@ -2,7 +2,7 @@
 
 - Google-calendar-react
 
-### [Site link]()
+
 
 ### The tech stack is
 
