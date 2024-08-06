@@ -1,0 +1,21 @@
+.time-line {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 18;
+
+  &__circle {
+    width: 5px;
+    height: 5px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(255, 0, 0);
+  }
+
+  &__rectangle {
+    height: 0.5px;
+    width: calc(100vw / 7 - 15px);
+    border: none;
+    background-color: rgb(255, 0, 0);
+  }
+}

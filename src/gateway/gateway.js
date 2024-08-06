@@ -1,36 +1,49 @@
-const baseUrl = 'https://6666ad4da2f8516ff7a45a72.mockapi.io/api/v1/events';
+const serverUrl = "https://6666ad4da2f8516ff7a45a72.mockapi.io/api/v1/events";
 
-export const createEvent = eventDate =>
-  fetch(baseUrl, {
-    method: 'POST',
+export const createEvent = (eventDate) =>
+  fetch(serverUrl, {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify(eventDate)
-  }).then(response => {
+    body: JSON.stringify(eventDate),
+  }).then((response) => {
     if (!response.ok) {
       throw new Error(`Internal Server Error. Can't display events`);
     }
   });
 
-export const fetchEvent = () =>
-  fetch(baseUrl).then(res => {
+export const getEvents = () =>
+  fetch(serverUrl).then((res) => {
     if (!res.ok) {
       throw new Error(`Internal Server Error. Can't display events`);
     }
-    return res.json().then(events =>
-      events.map(event => ({
+    return res.json().then((events) =>
+      events.map((event) => ({
         ...event,
         dateFrom: new Date(event.dateFrom),
-        dateTo: new Date(event.dateTo)
+        dateTo: new Date(event.dateTo),
       }))
     );
   });
 
-export const deleteEvent = eventId =>
-  fetch(`${baseUrl}/${eventId}`, {
-    method: 'DELETE'
-  }).then(response => {
+export const updateEvent = (eventId, eventData) =>
+  fetch(`${serverUrl}/${eventId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(eventData),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Internal Server Error. Can't update event`);
+    }
+  });
+
+export const deleteEvent = (eventId) =>
+  fetch(`${serverUrl}/${eventId}`, {
+    method: "DELETE",
+  }).then((response) => {
     if (!response.ok) {
       throw new Error(`Internal Server Error. Can't display events`);
     }

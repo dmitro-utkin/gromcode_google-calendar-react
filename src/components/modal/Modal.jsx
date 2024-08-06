@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
+import { createEvent } from '../../gateway/gateway.js';
 
 const Modal = ({ onClose, setEvents }) => {
   const [formData, setFormData] = useState({
@@ -17,8 +18,21 @@ const Modal = ({ onClose, setEvents }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEvents((prevEvents) => [...prevEvents, formData]);
-    onClose();  
+    const newEvent = {
+      title: formData.title,
+      description: formData.description,
+      dateFrom: new Date(formData.date + 'T' + formData.startTime).toISOString(),
+      dateTo: new Date(formData.date + 'T' + formData.endTime).toISOString(),
+    };
+    createEvent(newEvent)
+      .then(() => {
+        setEvents((prevEvents) => [...prevEvents, newEvent]);
+        onClose();
+      })
+      .catch((error) => {
+        console.error('Error creating event:', error);
+      });
+    onClose();
   };
 
   return (
@@ -66,7 +80,7 @@ const Modal = ({ onClose, setEvents }) => {
               value={formData.description}
               onChange={handleChange}
             ></textarea>
-            <button type="submit" className="event-form__submit-btn">
+            <button type="submit" className="event-form__submit-btn" onClick={handleSubmit}>
               Create
             </button>
           </form>
