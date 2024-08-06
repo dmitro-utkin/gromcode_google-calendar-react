@@ -1,10 +1,12 @@
 .time-line {
-  display: flex;
-  align-items: center;
   position: absolute;
-  z-index: 18;
+  width: 100%;
+  border-top: 1px solid red;
+  z-index: 10;
 
   &__circle {
+    position: absolute;
+    top: -3px;
     width: 5px;
     height: 5px;
     border: none;

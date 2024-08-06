@@ -1,6 +1,8 @@
 import React from "react";
 import Event from "../event/Event.jsx";
 import { formatMins } from "../../utils/dateUtils.js";
+import PropTypes from "prop-types";
+import "./hour.scss";
 
 const Hour = ({ dataHour, hourEvents }) => {
   return (
@@ -23,6 +25,18 @@ const Hour = ({ dataHour, hourEvents }) => {
       })}
     </div>
   );
+};
+
+Hour.propTypes = {
+  dataHour: PropTypes.number.isRequired,
+  hourEvents: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      dateFrom: PropTypes.instanceOf(Date).isRequired,
+      dateTo: PropTypes.instanceOf(Date).isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Hour;

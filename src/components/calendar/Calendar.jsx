@@ -14,6 +14,10 @@ const Calendar = ({ weekDates }) => {
     setEventList(events);
   }, []);
 
+  const today = new Date();
+  const currentMonth = today.getMonth() + 1; // Місяці в JavaScript починаються з 0
+  const currentDay = today.getDate();
+
   return (
     <section className="calendar">
       <div className="calendar__time-label">GMT +02</div>
@@ -21,7 +25,7 @@ const Calendar = ({ weekDates }) => {
       <div className="calendar__body">
         <div className="calendar__week-container">
           <Sidebar />
-          <Week weekDates={weekDates} events={eventList} />
+          <Week weekDates={weekDates} events={eventList} currentMonth={currentMonth} currentDay={currentDay} />
         </div>
       </div>
     </section>
