@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { deleteEvent, updateEvent } from "../../gateway/gateway";
 import "./event.scss";
 
-const Event = ({ height, marginTop, title, time }) => {
+const Event = ({ id, height, marginTop, title, time }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const eventStyle = {
@@ -10,7 +11,7 @@ const Event = ({ height, marginTop, title, time }) => {
     marginTop,
   };
 
-  const handleEventClick = () => {
+  const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
 
@@ -18,9 +19,18 @@ const Event = ({ height, marginTop, title, time }) => {
     setIsPopupOpen(false);
   };
 
+  const handleDelete = () => {
+    deleteEvent(id).then(() => {
+      console.log("Event deleted successfully");
+      handleClosePopup();
+    }).catch((error) => {
+      console.error("Failed to delete event:", error);
+    });
+  };
+
   return (
     <div>
-      <div style={eventStyle} className="event" onClick={handleEventClick}>
+      <div style={eventStyle} className="event" onClick={handleOpenPopup}>
         <div className="event__title">{title}</div>
         <div className="event__time">{time}</div>
       </div>
@@ -50,7 +60,7 @@ const Event = ({ height, marginTop, title, time }) => {
                 </div>
               </div>
               <div className="events-btn">
-                <button className="button events-btn__delete-btn">
+                <button className="button events-btn__delete-btn" onClick={handleDelete}>
                   <i className="fas fa-trash"></i>
                   Delete
                 </button>

@@ -21,6 +21,7 @@ export const getEvents = () =>
     return res.json().then((events) =>
       events.map((event) => ({
         ...event,
+        id: Number(event.id), // Перетворення id в число
         dateFrom: new Date(event.dateFrom),
         dateTo: new Date(event.dateTo),
       }))

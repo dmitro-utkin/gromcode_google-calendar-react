@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import Navigation from '../navigation/Navigation.jsx';
 import Week from '../week/Week.jsx';
 import Sidebar from '../sidebar/Sidebar.jsx';
-import events from '../../gateway/events.js';
+import {getEvents} from '../../gateway/gateway.js';
 import './calendar.scss';
 
 const Calendar = ({ weekDates }) => {
-  const [eventList, setEventList] = useState([]);
+  const [eventList, setEvents] = useState([]);
 
   useEffect(() => {
-    console.log('Loading events:', events);
-    setEventList(events);
+    getEvents().then((data) => setEvents(data));
   }, []);
 
   const today = new Date();
-  const currentMonth = today.getMonth() + 1; // Місяці в JavaScript починаються з 0
+  const currentMonth = today.getMonth() + 1;
   const currentDay = today.getDate();
 
   return (
