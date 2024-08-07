@@ -2,7 +2,7 @@
 
 - Google-calendar-react
 
-### [Site link](https://dmitro-utkin.github.io/gromcode_google-calendar-react)
+### [Site link](https://gromcode-google-calendar-react-v1.netlify.app)
 
 ### The tech stack is
 
