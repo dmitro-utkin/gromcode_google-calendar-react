@@ -1,7 +1,7 @@
-import React from 'react';
-import Day from '../day/Day.jsx';
-import PropTypes from 'prop-types';
-import './week.scss';
+import React from "react";
+import Day from "../day/Day.jsx";
+import PropTypes from "prop-types";
+import "./week.scss";
 
 const Week = ({ weekDates, events, currentMonth, currentDay }) => {
   return (
@@ -16,15 +16,13 @@ const Week = ({ weekDates, events, currentMonth, currentDay }) => {
           (event) => event.dateFrom > dayStart && event.dateTo < dayEnd
         );
 
-        const isCurrentDay = currentMonth === dayStart.getMonth() && currentDay === dayStart.getDate();
-
         return (
           <Day
-          key={dayStart.getDate()}
-          dataDay={dayStart.getDate()}
-          dayEvents={dayEvents}
-          currentMonth={currentMonth}
-          currentDay={currentDay}
+            key={dayStart.getDate()}
+            dataDay={dayStart.getDate()}
+            dayEvents={dayEvents}
+            currentMonth={currentMonth}
+            currentDay={currentDay}
           />
         );
       })}

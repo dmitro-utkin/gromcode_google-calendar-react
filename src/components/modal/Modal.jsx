@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
-import { createEvent } from '../../gateway/gateway.js';
+import { createEvent, deleteEvent } from '../../gateway/gateway.js';
 
-const Modal = ({ onClose, setEvents }) => {
+const Modal = ({ onClose, setEvents, updateDisplayedEvents }) => {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -16,7 +16,9 @@ const Modal = ({ onClose, setEvents }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = (e) => {
+    console.log('handleSubmit');
     e.preventDefault();
     const newEvent = {
       title: formData.title,
@@ -24,15 +26,17 @@ const Modal = ({ onClose, setEvents }) => {
       dateFrom: new Date(formData.date + 'T' + formData.startTime).toISOString(),
       dateTo: new Date(formData.date + 'T' + formData.endTime).toISOString(),
     };
+    console.log('newEvent:', newEvent);
     createEvent(newEvent)
       .then(() => {
-        setEvents((prevEvents) => [...prevEvents, newEvent]);
+        console.log('Event created successfully');
+        updateDisplayedEvents();
+        console.log('onClose');
         onClose();
       })
       .catch((error) => {
         console.error('Error creating event:', error);
       });
-    onClose();
   };
 
   return (
