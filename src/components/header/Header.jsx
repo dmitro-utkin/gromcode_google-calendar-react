@@ -2,19 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../modal/Modal';
 import { getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
 import PropTypes from 'prop-types';
-import { getEvents } from '../../gateway/gateway';
 import './header.scss';
 
-const Header = ({ weekStartDate, setWeekStartDate }) => {
+const Header = ({ weekStartDate, setWeekStartDate, updateDisplayedEvents }) => {
   const [showModal, setShowModal] = useState(false);
-  const [ events, setEvents ] = useState([]);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-
-  useEffect(() => {
-    updateDisplayedEvents();
-  }, []);
 
   const handleAddEvent = (newEvent) => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
@@ -32,10 +26,6 @@ const Header = ({ weekStartDate, setWeekStartDate }) => {
     setWeekStartDate(nextWeekStartDate);
   };
   
-  const updateDisplayedEvents = () => {
-    getEvents().then(data => setEvents(data));
-  };
-
   return (
     <header className="header">
       <button className="button create-event-btn" onClick={openModal}>
@@ -67,7 +57,8 @@ const Header = ({ weekStartDate, setWeekStartDate }) => {
 
 Header.propTypes = {
   weekStartDate: PropTypes.instanceOf(Date).isRequired,
-  setWeekStartDate: PropTypes.func.isRequired
+  setWeekStartDate: PropTypes.func.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
 };
 
 export default Header;

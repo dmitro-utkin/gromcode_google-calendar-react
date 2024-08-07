@@ -6,13 +6,15 @@ import Sidebar from "../sidebar/Sidebar.jsx";
 import { getEvents } from "../../gateway/gateway.js";
 import "./calendar.scss";
 
-const Calendar = ({ weekDates }) => {
+const Calendar = ({ weekDates, updateDisplayedEvents }) => {
   const [eventList, setEvents] = useState([]);
 
   useEffect(() => {
     getEvents().then((data) => {
       console.log("Fetched events:", data);
       setEvents(data);
+
+      updateDisplayedEvents();
     });
     getEvents().then((data) => setEvents(data));
   }, []);

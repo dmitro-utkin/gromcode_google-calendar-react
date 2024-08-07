@@ -16,7 +16,6 @@ const Modal = ({ onClose, setEvents, updateDisplayedEvents }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
   const handleSubmit = (e) => {
     console.log('handleSubmit');
     e.preventDefault();
@@ -31,8 +30,8 @@ const Modal = ({ onClose, setEvents, updateDisplayedEvents }) => {
       .then(() => {
         console.log('Event created successfully');
         updateDisplayedEvents();
-        console.log('onClose');
         onClose();
+        console.log('onClose');
       })
       .catch((error) => {
         console.error('Error creating event:', error);
