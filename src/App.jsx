@@ -24,6 +24,14 @@ const App = () => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
   };
 
+  const setEventsForDisplay = (events) => {
+    setEvents(events);
+  };
+
+  const updateDisplayedEvents = () => {
+    getEvents().then(data => setEventsForDisplay(data));
+  }; 
+
   return (
     <>
       <Header
@@ -31,12 +39,14 @@ const App = () => {
         setWeekStartDate={setWeekStartDate}
         addEvent={addEvent}
         setEvents={setEvents}
+        updateDisplayedEvents={updateDisplayedEvents}
       />
       <Calendar
         weekDates={weekDates}
         events={events}
         addEvent={addEvent}
         setEvents={setEvents}
+        updateDisplayedEvents={updateDisplayedEvents}
       />
     </>
   );

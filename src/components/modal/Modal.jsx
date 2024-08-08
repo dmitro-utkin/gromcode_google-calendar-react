@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './modal.scss';
 import { createEvent, deleteEvent } from '../../gateway/gateway.js';
 
-const Modal = ({ onClose, setEvents, addEvent }) => {
+const Modal = ({ onClose, updateDisplayedEvents, addEvent }) => {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -29,6 +29,7 @@ const Modal = ({ onClose, setEvents, addEvent }) => {
     createEvent(newEvent)
       .then(() => {
         addEvent(newEvent);
+        updateDisplayedEvents();
         onClose();
       })
       .catch((error) => {

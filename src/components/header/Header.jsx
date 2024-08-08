@@ -4,7 +4,7 @@ import { getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
 import PropTypes from 'prop-types';
 import './header.scss';
 
-const Header = ({ weekStartDate, setWeekStartDate, addEvent, setEvents }) => {
+const Header = ({ weekStartDate, setWeekStartDate, addEvent, setEvents, updateDisplayedEvents }) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
@@ -46,7 +46,7 @@ const Header = ({ weekStartDate, setWeekStartDate, addEvent, setEvents }) => {
         </button>
         <span className="navigation__displayed-month">{getDisplayedMonth(weekStartDate)}</span>
       </div>
-      {showModal && <Modal onClose={closeModal} addEvent={addEvent} setEvents={setEvents} />} 
+      {showModal && <Modal onClose={closeModal} addEvent={addEvent} setEvents={setEvents} updateDisplayedEvents={updateDisplayedEvents}/>} 
     </header>
   );
 };
