@@ -5,7 +5,7 @@ import Week from "../week/Week.jsx";
 import Sidebar from "../sidebar/Sidebar.jsx";
 import "./calendar.scss";
 
-const Calendar = ({ weekDates, events }) => {
+const Calendar = ({ weekDates, events, updateDisplayedEvents }) => {
 
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
@@ -23,6 +23,7 @@ const Calendar = ({ weekDates, events }) => {
             events={events}
             currentMonth={currentMonth}
             currentDay={currentDay}
+            updateDisplayedEvents={updateDisplayedEvents}
           />
         </div>
       </div>

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import './modal.scss';
-import { createEvent, deleteEvent } from '../../gateway/gateway.js';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import "./modal.scss";
+import { createEvent } from "../../gateway/gateway.js";
 
-const Modal = ({ onClose, updateDisplayedEvents, addEvent }) => {
+const Modal = ({ onClose, updateDisplayedEvents }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    date: '',
-    startTime: '',
-    endTime: '',
-    description: '',
+    title: "",
+    date: "",
+    startTime: "",
+    endTime: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -17,23 +17,22 @@ const Modal = ({ onClose, updateDisplayedEvents, addEvent }) => {
   };
 
   const handleSubmit = (e) => {
-    console.log('handleSubmit');
     e.preventDefault();
     const newEvent = {
       title: formData.title,
       description: formData.description,
-      dateFrom: new Date(formData.date + 'T' + formData.startTime).toISOString(),
-      dateTo: new Date(formData.date + 'T' + formData.endTime).toISOString(),
+      dateFrom: new Date(
+        formData.date + "T" + formData.startTime
+      ).toISOString(),
+      dateTo: new Date(formData.date + "T" + formData.endTime).toISOString(),
     };
-    console.log('newEvent:', newEvent);
     createEvent(newEvent)
       .then(() => {
-        addEvent(newEvent);
         updateDisplayedEvents();
         onClose();
       })
       .catch((error) => {
-        console.error('Error creating event:', error);
+        console.error("Error creating event:", error);
       });
   };
 
@@ -41,7 +40,9 @@ const Modal = ({ onClose, updateDisplayedEvents, addEvent }) => {
     <div className="modal overlay">
       <div className="modal__content">
         <div className="create-event">
-          <button onClick={ onClose } className="create-event__close-btn">+</button>
+          <button onClick={onClose} className="create-event__close-btn">
+            +
+          </button>
           <form className="event-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -82,7 +83,11 @@ const Modal = ({ onClose, updateDisplayedEvents, addEvent }) => {
               value={formData.description}
               onChange={handleChange}
             ></textarea>
-            <button type="submit" className="event-form__submit-btn" onClick={handleSubmit}>
+            <button
+              type="submit"
+              className="event-form__submit-btn"
+              onClick={handleSubmit}
+            >
               Create
             </button>
           </form>
@@ -93,8 +98,8 @@ const Modal = ({ onClose, updateDisplayedEvents, addEvent }) => {
 };
 
 Modal.propTypes = {
-  onClose : PropTypes.func.isRequired,
-  setEvents: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  setEvents: PropTypes.func.isRequired,
 };
 
 export default Modal;

@@ -3,13 +3,20 @@ import Hour from "../hour/Hour.jsx";
 import TimeLine from "../timeLine/TimeLine.jsx";
 import "./day.scss";
 
-const Day = ({ dataDay, dayEvents, currentMonth, setEvents }) => {
+const Day = ({
+  dataDay,
+  dayEvents,
+  currentMonth,
+  setEvents,
+  updateDisplayedEvents,
+}) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
 
   const today = new Date();
-  const isToday = today.getDate() === dataDay && today.getMonth() + 1 === currentMonth;
+  const isToday =
+    today.getDate() === dataDay && today.getMonth() + 1 === currentMonth;
 
   return (
     <div className="calendar__day" data-day={dataDay} data-month={currentMonth}>
@@ -22,12 +29,17 @@ const Day = ({ dataDay, dayEvents, currentMonth, setEvents }) => {
           }));
 
         return (
-          <Hour key={dataDay + hour} dataHour={hour} hourEvents={hourEvents} setEvents={setEvents} onDelete={setEvents} />
+          <Hour
+            key={dataDay + hour}
+            dataHour={hour}
+            hourEvents={hourEvents}
+            setEvents={setEvents}
+            onDelete={setEvents}
+            updateDisplayedEvents={updateDisplayedEvents}
+          />
         );
       })}
-      {isToday && (
-        <TimeLine dataDay={dataDay} month={currentMonth} />
-      )}
+      {isToday && <TimeLine dataDay={dataDay} month={currentMonth} />}
     </div>
   );
 };

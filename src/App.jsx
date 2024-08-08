@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/header/Header.jsx";
 import Calendar from "./components/calendar/Calendar.jsx";
+import PropTypes from "prop-types";
 import { getEvents } from "./gateway/gateway.js";
 import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
 
@@ -10,27 +11,17 @@ const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(
     getWeekStartDate(new Date())
   );
-
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    getEvents().then((data) => {setEvents(data);
-    })
-  }, []);
+  useEffect(() => getEvents().then(setEvents), []);
 
   const addEvent = (newEvent) => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
   };
 
-  const setEventsForDisplay = (events) => {
-    setEvents(events);
-  };
-
-  const updateDisplayedEvents = () => {
-    getEvents().then(data => setEventsForDisplay(data));
-  }; 
+  const setEventsForDisplay = events => {setEvents(events)};
+  const updateDisplayedEvents = () => {getEvents().then(data => setEventsForDisplay(data))}; 
 
   return (
     <>
@@ -50,6 +41,11 @@ const App = () => {
       />
     </>
   );
+};
+
+App.propTypes = {
+  weekStartDate: PropTypes.instanceOf(Date),
+  setWeekStartDate: PropTypes.func,
 };
 
 export default App;

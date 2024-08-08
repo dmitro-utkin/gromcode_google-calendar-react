@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { deleteEvent, updateEvent } from "../../gateway/gateway";
 import "./event.scss";
 
-const Event = ({ id, height, marginTop, title, time }) => {
+const Event = ({ id, height, marginTop, title, time, description, updateDisplayedEvents }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const eventStyle = {
@@ -11,28 +11,25 @@ const Event = ({ id, height, marginTop, title, time }) => {
     marginTop,
   };
 
-  const handleOpenPopup = () => {
-    setIsPopupOpen(true);
-  };
+  const handleOpenPopup = () => setIsPopupOpen(true);
+  const handleClosePopup = () => setIsPopupOpen(false);
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
-
-  const handleDelete = () => {
-    deleteEvent(id).then(() => {
-      console.log("Event deleted successfully");
-      handleClosePopup();
-    }).catch((error) => {
-      console.error("Failed to delete event:", error);
-    });
-  };
+const handleDelete = async () => {
+  try {
+    await deleteEvent(id);
+    handleClosePopup();
+    updateDisplayedEvents();
+  } catch (error) {
+    console.error("Failed to delete event:", error);
+  }
+};
 
   return (
     <div>
       <div style={eventStyle} className="event" onClick={handleOpenPopup}>
         <div className="event__title">{title}</div>
         <div className="event__time">{time}</div>
+        <div className="event__description">{description}</div>
       </div>
       {isPopupOpen && (
         <div className="popup">
@@ -74,10 +71,13 @@ const Event = ({ id, height, marginTop, title, time }) => {
 };
 
 Event.propTypes = {
+  id: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   marginTop: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
 };
 
 export default Event;

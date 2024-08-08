@@ -3,7 +3,7 @@ import Day from "../day/Day.jsx";
 import PropTypes from "prop-types";
 import "./week.scss";
 
-const Week = ({ weekDates, events, currentMonth, currentDay }) => {
+const Week = ({ weekDates, events, currentMonth, currentDay, updateDisplayedEvents }) => {
 
   
   return (
@@ -25,6 +25,7 @@ const Week = ({ weekDates, events, currentMonth, currentDay }) => {
             dayEvents={dayEvents}
             currentMonth={currentMonth}
             currentDay={currentDay}
+            updateDisplayedEvents={updateDisplayedEvents}
           />
         );
       })}
