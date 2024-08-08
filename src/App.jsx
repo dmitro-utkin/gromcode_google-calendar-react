@@ -14,14 +14,15 @@ const App = () => {
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   const [events, setEvents] = useState([]);
-  useEffect(() => getEvents().then(setEvents), []);
+  useEffect(() => getEvents().then(setEvents), [weekStartDate]);
 
   const addEvent = (newEvent) => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
   };
 
-  const setEventsForDisplay = events => {setEvents(events)};
-  const updateDisplayedEvents = () => {getEvents().then(data => setEventsForDisplay(data))}; 
+  const updateDisplayedEvents = () => {
+    getEvents().then(setEvents);
+  };
 
   return (
     <>
@@ -29,6 +30,7 @@ const App = () => {
         weekStartDate={weekStartDate}
         setWeekStartDate={setWeekStartDate}
         addEvent={addEvent}
+        events={events}
         setEvents={setEvents}
         updateDisplayedEvents={updateDisplayedEvents}
       />

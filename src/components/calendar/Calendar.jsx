@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Navigation from "../navigation/Navigation.jsx";
 import Week from "../week/Week.jsx";
@@ -6,7 +6,6 @@ import Sidebar from "../sidebar/Sidebar.jsx";
 import "./calendar.scss";
 
 const Calendar = ({ weekDates, events, updateDisplayedEvents }) => {
-
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
   const currentDay = today.getDate();
@@ -33,6 +32,8 @@ const Calendar = ({ weekDates, events, updateDisplayedEvents }) => {
 
 Calendar.propTypes = {
   weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
+  events: PropTypes.array.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
 };
 
 export default Calendar;

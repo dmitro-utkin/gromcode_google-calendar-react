@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import Modal from '../modal/Modal';
-import { getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
-import PropTypes from 'prop-types';
-import './header.scss';
+import React, { useState } from "react";
+import Modal from "../modal/Modal";
+import { getDisplayedMonth, getWeekStartDate } from "../../utils/dateUtils";
+import PropTypes from "prop-types";
+import "./header.scss";
 
-const Header = ({ weekStartDate, setWeekStartDate, addEvent, setEvents, updateDisplayedEvents }) => {
+const Header = ({
+  weekStartDate,
+  setWeekStartDate,
+  addEvent,
+  setEvents,
+  events,
+  updateDisplayedEvents,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const handlePrevWeek = () => {
-    const prevWeekStartDate = new Date(weekStartDate);
-    prevWeekStartDate.setDate(prevWeekStartDate.getDate() - 7);
-    setWeekStartDate(prevWeekStartDate);
+  const changeWeek = (days) => {
+    const newWeekStartDate = new Date(weekStartDate);
+    newWeekStartDate.setDate(newWeekStartDate.getDate() + days);
+    setWeekStartDate(newWeekStartDate);
   };
 
-  const handleNextWeek = () => {
-    const nextWeekStartDate = new Date(weekStartDate);
-    nextWeekStartDate.setDate(nextWeekStartDate.getDate() + 7);
-    setWeekStartDate(nextWeekStartDate);
-  };
-  
   return (
     <header className="header">
       <button className="button create-event-btn" onClick={openModal}>
@@ -37,16 +38,37 @@ const Header = ({ weekStartDate, setWeekStartDate, addEvent, setEvents, updateDi
         Create
       </button>
       <div className="navigation">
-        <button className="navigation__today-btn button" onClick={() => setWeekStartDate(getWeekStartDate(new Date()))}>Today</button>
-        <button className="icon-button navigation__nav-icon" onClick={handlePrevWeek}>
+        <button
+          className="navigation__today-btn button"
+          onClick={() => setWeekStartDate(getWeekStartDate(new Date()))}
+        >
+          Today
+        </button>
+        <button
+          className="icon-button navigation__nav-icon"
+          onClick={() => changeWeek(-7)}
+        >
           <i className="fas fa-chevron-left"></i>
         </button>
-        <button className="icon-button navigation__nav-icon" onClick={handleNextWeek}>
+        <button
+          className="icon-button navigation__nav-icon"
+          onClick={() => changeWeek(7)}
+        >
           <i className="fas fa-chevron-right"></i>
         </button>
-        <span className="navigation__displayed-month">{getDisplayedMonth(weekStartDate)}</span>
+        <span className="navigation__displayed-month">
+          {getDisplayedMonth(weekStartDate)}
+        </span>
       </div>
-      {showModal && <Modal onClose={closeModal} addEvent={addEvent} setEvents={setEvents} updateDisplayedEvents={updateDisplayedEvents}/>} 
+      {showModal && (
+        <Modal
+          onClose={closeModal}
+          addEvent={addEvent}
+          events={events}
+          setEvents={setEvents}
+          updateDisplayedEvents={updateDisplayedEvents}
+        />
+      )}
     </header>
   );
 };
@@ -54,6 +76,10 @@ const Header = ({ weekStartDate, setWeekStartDate, addEvent, setEvents, updateDi
 Header.propTypes = {
   weekStartDate: PropTypes.instanceOf(Date).isRequired,
   setWeekStartDate: PropTypes.func.isRequired,
+  addEvent: PropTypes.func.isRequired,
+  setEvents: PropTypes.func.isRequired,
+  events: PropTypes.array.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
 };
 
 export default Header;

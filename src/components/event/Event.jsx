@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { deleteEvent, updateEvent } from "../../gateway/gateway";
+import Modal from "../modal/Modal.jsx";
 import "./event.scss";
 
-const Event = ({ id, height, marginTop, title, time, description, updateDisplayedEvents }) => {
+const Event = ({
+  id,
+  height,
+  marginTop,
+  title,
+  time,
+  description,
+  updateDisplayedEvents,
+}) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const eventStyle = {
     height,
@@ -14,15 +24,24 @@ const Event = ({ id, height, marginTop, title, time, description, updateDisplaye
   const handleOpenPopup = () => setIsPopupOpen(true);
   const handleClosePopup = () => setIsPopupOpen(false);
 
-const handleDelete = async () => {
-  try {
-    await deleteEvent(id);
+  const handleDelete = async () => {
+    try {
+      await deleteEvent(id);
+      handleClosePopup();
+      updateDisplayedEvents();
+    } catch (error) {
+      console.error("Failed to delete event:", error);
+    }
+  };
+
+  const handleEdit = () => {
+    setIsModalOpen(true);
     handleClosePopup();
-    updateDisplayedEvents();
-  } catch (error) {
-    console.error("Failed to delete event:", error);
-  }
-};
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div>
@@ -34,12 +53,17 @@ const handleDelete = async () => {
       {isPopupOpen && (
         <div className="popup">
           <div className="popup__content">
-            <button className="popup__close-btn" onClick={handleClosePopup}>
+            <button 
+            className="popup__close-btn" 
+            onClick={handleClosePopup}>
               x
             </button>
             <div className="popup__actions">
               <div className="events-btn">
-                <button className="button events-btn__edit-btn">
+                <button
+                  className="button events-btn__edit-btn"
+                  onClick={handleEdit}
+                >
                   <i className="fas fa-pen"></i>
                   Edit
                 </button>
@@ -57,7 +81,10 @@ const handleDelete = async () => {
                 </div>
               </div>
               <div className="events-btn">
-                <button className="button events-btn__delete-btn" onClick={handleDelete}>
+                <button
+                  className="button events-btn__delete-btn"
+                  onClick={handleDelete}
+                >
                   <i className="fas fa-trash"></i>
                   Delete
                 </button>
@@ -65,6 +92,17 @@ const handleDelete = async () => {
             </div>
           </div>
         </div>
+      )}
+      {isModalOpen && (
+        <Modal
+          onClose={handleCloseModal}
+          updateDisplayedEvents={updateDisplayedEvents}
+          events={id}
+          id={id}
+          title={title}
+          description={description}
+          time={time}
+        />
       )}
     </div>
   );

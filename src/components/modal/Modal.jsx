@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./modal.scss";
 import { createEvent } from "../../gateway/gateway.js";
 
-const Modal = ({ onClose, updateDisplayedEvents }) => {
+const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
   const [formData, setFormData] = useState({
     title: "",
     date: "",
@@ -11,6 +11,18 @@ const Modal = ({ onClose, updateDisplayedEvents }) => {
     endTime: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (events) {
+      setFormData({
+        title: events.title,
+        date: events.date,
+        startTime: events.startTime,
+        endTime: events.endTime,
+        description: events.description,
+      });
+    }
+  }, [events]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -98,8 +110,7 @@ const Modal = ({ onClose, updateDisplayedEvents }) => {
 };
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  setEvents: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default Modal;
