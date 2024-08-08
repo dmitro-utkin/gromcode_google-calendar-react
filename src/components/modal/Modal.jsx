@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './modal.scss';
 import { createEvent, deleteEvent } from '../../gateway/gateway.js';
 
-const Modal = ({ onClose, setEvents, updateDisplayedEvents }) => {
+const Modal = ({ onClose, setEvents, addEvent }) => {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -28,10 +28,8 @@ const Modal = ({ onClose, setEvents, updateDisplayedEvents }) => {
     console.log('newEvent:', newEvent);
     createEvent(newEvent)
       .then(() => {
-        console.log('Event created successfully');
-        updateDisplayedEvents();
+        addEvent(newEvent);
         onClose();
-        console.log('onClose');
       })
       .catch((error) => {
         console.error('Error creating event:', error);

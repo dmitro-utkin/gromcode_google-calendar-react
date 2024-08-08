@@ -3,21 +3,9 @@ import PropTypes from "prop-types";
 import Navigation from "../navigation/Navigation.jsx";
 import Week from "../week/Week.jsx";
 import Sidebar from "../sidebar/Sidebar.jsx";
-import { getEvents } from "../../gateway/gateway.js";
 import "./calendar.scss";
 
-const Calendar = ({ weekDates, updateDisplayedEvents }) => {
-  const [eventList, setEvents] = useState([]);
-
-  useEffect(() => {
-    getEvents().then((data) => {
-      console.log("Fetched events:", data);
-      setEvents(data);
-
-      updateDisplayedEvents();
-    });
-    getEvents().then((data) => setEvents(data));
-  }, []);
+const Calendar = ({ weekDates, events, setEvents }) => {
 
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
@@ -32,10 +20,10 @@ const Calendar = ({ weekDates, updateDisplayedEvents }) => {
           <Sidebar />
           <Week
             weekDates={weekDates}
-            events={eventList}
+            events={events}
             currentMonth={currentMonth}
             currentDay={currentDay}
-
+            setEvents={setEvents}
           />
         </div>
       </div>

@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import "./week.scss";
 
 const Week = ({ weekDates, events, currentMonth, currentDay }) => {
+
+  
   return (
     <div className="calendar__week">
       {weekDates.map((dayStart) => {
@@ -32,14 +34,7 @@ const Week = ({ weekDates, events, currentMonth, currentDay }) => {
 
 Week.propTypes = {
   weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
-  events: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      dateFrom: PropTypes.instanceOf(Date).isRequired,
-      dateTo: PropTypes.instanceOf(Date).isRequired,
-    })
-  ).isRequired,
+  events: PropTypes.array.isRequired,
   currentMonth: PropTypes.number.isRequired,
   currentDay: PropTypes.number.isRequired,
 };
