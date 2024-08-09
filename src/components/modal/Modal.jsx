@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./modal.scss";
-import { createEvent } from "../../gateway/gateway.js";
+import { createEvent, updateEvent } from "../../gateway/gateway.js";
 
-const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
+const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
   const [formData, setFormData] = useState({
     title: "",
     date: "",
@@ -15,11 +15,11 @@ const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
   useEffect(() => {
     if (events) {
       setFormData({
-        title: events.title,
-        date: events.date,
-        startTime: events.startTime,
-        endTime: events.endTime,
-        description: events.description,
+        title: events.title || "",
+        date: events.date || "",
+        startTime: events.startTime || "",
+        endTime: events.endTime || "",
+        description: events.description || "",
       });
     }
   }, [events]);
@@ -30,7 +30,7 @@ const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newEvent = {
+    const updatedEvent = {
       title: formData.title,
       description: formData.description,
       dateFrom: new Date(
@@ -38,14 +38,26 @@ const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
       ).toISOString(),
       dateTo: new Date(formData.date + "T" + formData.endTime).toISOString(),
     };
-    createEvent(newEvent)
-      .then(() => {
-        updateDisplayedEvents();
-        onClose();
-      })
-      .catch((error) => {
-        console.error("Error creating event:", error);
-      });
+
+    if (isEditMode) {
+      updateEvent(events.id, updatedEvent)
+        .then(() => {
+          updateDisplayedEvents();
+          onClose();
+        })
+        .catch((error) => {
+          console.error("Error updating event:", error);
+        });
+    } else {
+      createEvent(updatedEvent)
+        .then(() => {
+          updateDisplayedEvents();
+          onClose();
+        })
+        .catch((error) => {
+          console.error("Error creating event:", error);
+        });
+    }
   };
 
   return (
@@ -100,7 +112,7 @@ const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
               className="event-form__submit-btn"
               onClick={handleSubmit}
             >
-              Create
+              {isEditMode ? "Update" : "Create"}
             </button>
           </form>
         </div>
@@ -110,7 +122,9 @@ const Modal = ({ onClose, updateDisplayedEvents, events, setEvents }) => {
 };
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
+  events: PropTypes.object,
 };
 
 export default Modal;
