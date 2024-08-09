@@ -3,7 +3,7 @@ import Day from "../day/Day.jsx";
 import PropTypes from "prop-types";
 import "./week.scss";
 
-const Week = ({ weekDates, events, month, updateDisplayedEvents }) => {  
+const Week = ({ weekDates, events, month, color, updateDisplayedEvents }) => {  
   return (
     <div className="calendar__week">
       {weekDates.map((dayStart) => {
@@ -21,6 +21,7 @@ const Week = ({ weekDates, events, month, updateDisplayedEvents }) => {
             dataDay={dayStart.getDate()}
             dayEvents={dayEvents}
             month={month}
+            color={color}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         );

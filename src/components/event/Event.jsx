@@ -177,7 +177,7 @@ const Event = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventData, setEventData] = useState(null);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
-  const [eventColor, setEventColor] = useState(color);
+  const [eventColor, setEventColor] = useState(color || "default-color");
 
   const eventStyle = {
     height,

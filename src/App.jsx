@@ -33,6 +33,7 @@ const App = () => {
       <Calendar
         weekStartDate={weekStartDate}
         events={events}
+        color="blue"
         addEvent={addEvent}
         setEvents={setEvents}
         updateDisplayedEvents={updateDisplayedEvents}

@@ -10,7 +10,7 @@ import {
 } from "../../utils/dateUtils";
 import "./calendar.scss";
 
-const Calendar = ({ events, updateDisplayedEvents, weekStartDate }) => {
+const Calendar = ({ events, color, updateDisplayedEvents, weekStartDate }) => {
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
   const month = getDisplayedMonth(getWeekStartDate(weekStartDate));
 
@@ -25,6 +25,7 @@ const Calendar = ({ events, updateDisplayedEvents, weekStartDate }) => {
             weekDates={weekDates}
             events={events}
             month={month}
+            color={color}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         </div>

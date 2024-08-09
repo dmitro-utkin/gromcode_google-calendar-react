@@ -11,11 +11,12 @@ const Hour = ({
   month,
   onDelete,
   dataDay,
+  color,
   updateDisplayedEvents,
 }) => {
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
-      {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
+      {hourEvents.map(({ id, dateFrom, dateTo, title, description, color }) => {
         const eventStart = `${dateFrom.getHours()}:${formatMins(
           dateFrom.getMinutes()
         )}`;
@@ -32,6 +33,7 @@ const Hour = ({
             time={`${eventStart} - ${eventEnd}`}
             title={title}
             description={description}
+            color={color}
             onDelete={onDelete}
             updateDisplayedEvents={updateDisplayedEvents}
           />

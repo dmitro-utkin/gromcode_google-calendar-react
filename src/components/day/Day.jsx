@@ -1,6 +1,5 @@
 import React from "react";
 import Hour from "../hour/Hour.jsx";
-import TimeLine from "../timeLine/TimeLine.jsx";
 import "./day.scss";
 
 const Day = ({
@@ -9,6 +8,7 @@ const Day = ({
   month={month},
   setEvents,
   updateDisplayedEvents,
+  color,
 }) => {
   const hours = Array(24)
     .fill()
@@ -34,10 +34,10 @@ const Day = ({
             updateDisplayedEvents={updateDisplayedEvents}
             dataDay={dataDay}
             month={month}
+            color={color}
           />
         );
       })}
-
     </div>
   );
 };
