@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import Navigation from "../navigation/Navigation.jsx";
 import Week from "../week/Week.jsx";
 import Sidebar from "../sidebar/Sidebar.jsx";
+import { generateWeekRange, getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
 import "./calendar.scss";
 
-const Calendar = ({ weekDates, events, updateDisplayedEvents }) => {
-  const today = new Date();
-  const currentMonth = today.getMonth() + 1;
-  const currentDay = today.getDate();
+const Calendar = ({ events, updateDisplayedEvents, weekStartDate }) => {
+  const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
+  const month = getDisplayedMonth(getWeekStartDate(weekStartDate));
 
   return (
     <section className="calendar">
@@ -20,8 +20,7 @@ const Calendar = ({ weekDates, events, updateDisplayedEvents }) => {
           <Week
             weekDates={weekDates}
             events={events}
-            currentMonth={currentMonth}
-            currentDay={currentDay}
+            month={month}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         </div>

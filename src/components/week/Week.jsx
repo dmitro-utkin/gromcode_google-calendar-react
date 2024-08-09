@@ -3,9 +3,7 @@ import Day from "../day/Day.jsx";
 import PropTypes from "prop-types";
 import "./week.scss";
 
-const Week = ({ weekDates, events, currentMonth, currentDay, updateDisplayedEvents }) => {
-
-  
+const Week = ({ weekDates, events, month, updateDisplayedEvents }) => {  
   return (
     <div className="calendar__week">
       {weekDates.map((dayStart) => {
@@ -13,7 +11,6 @@ const Week = ({ weekDates, events, currentMonth, currentDay, updateDisplayedEven
           dayStart.getHours() + 24
         );
 
-        //getting all events from the day we will render
         const dayEvents = events.filter(
           (event) => event.dateFrom > dayStart && event.dateTo < dayEnd
         );
@@ -23,8 +20,7 @@ const Week = ({ weekDates, events, currentMonth, currentDay, updateDisplayedEven
             key={dayStart.getDate()}
             dataDay={dayStart.getDate()}
             dayEvents={dayEvents}
-            currentMonth={currentMonth}
-            currentDay={currentDay}
+            month={month}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         );
@@ -36,8 +32,7 @@ const Week = ({ weekDates, events, currentMonth, currentDay, updateDisplayedEven
 Week.propTypes = {
   weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   events: PropTypes.array.isRequired,
-  currentMonth: PropTypes.number.isRequired,
-  currentDay: PropTypes.number.isRequired,
+
 };
 
 export default Week;

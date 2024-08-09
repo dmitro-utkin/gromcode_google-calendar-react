@@ -3,14 +3,25 @@ import Event from "../event/Event.jsx";
 import { formatMins } from "../../utils/dateUtils.js";
 import PropTypes from "prop-types";
 import "./hour.scss";
+import TimeLine from "../timeLine/TimeLine.jsx";
 
-const Hour = ({ dataHour, hourEvents, onDelete, updateDisplayedEvents }) => {
+const Hour = ({
+  dataHour,
+  hourEvents,
+  month,
+  onDelete,
+  dataDay,
+  updateDisplayedEvents,
+}) => {
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
-      {/* if no events in the current hour nothing will render here */}
       {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
-        const eventStart = `${dateFrom.getHours()}:${formatMins(dateFrom.getMinutes())}`;
-        const eventEnd = `${dateTo.getHours()}:${formatMins(dateTo.getMinutes())}`;
+        const eventStart = `${dateFrom.getHours()}:${formatMins(
+          dateFrom.getMinutes()
+        )}`;
+        const eventEnd = `${dateTo.getHours()}:${formatMins(
+          dateTo.getMinutes()
+        )}`;
 
         return (
           <Event
@@ -26,6 +37,9 @@ const Hour = ({ dataHour, hourEvents, onDelete, updateDisplayedEvents }) => {
           />
         );
       })}
+      {dataHour === new Date().getHours() && (
+        <TimeLine dataDay={dataDay} month={month} />
+      )}
     </div>
   );
 };
