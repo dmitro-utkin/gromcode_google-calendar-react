@@ -41,8 +41,7 @@ const TimeLine = ({ dataDay, month }) => {
 };
 
 TimeLine.propTypes = {
-  dataDay: PropTypes.number.isRequired,
-  month: PropTypes.number.isRequired,
+  dataDay: PropTypes.number.isRequired
 };
 
 export default TimeLine;

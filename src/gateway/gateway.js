@@ -28,6 +28,19 @@ export const getEvents = () =>
     );
   });
 
+export const getEventById = (eventId) =>
+  fetch(`${serverUrl}/${eventId}`).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Internal Server Error. Can't fetch event`);
+    }
+    return response.json().then((event) => ({
+      ...event,
+      id: Number(event.id), // Перетворення id в число
+      dateFrom: new Date(event.dateFrom),
+      dateTo: new Date(event.dateTo),
+    }));
+  });
+
 export const updateEvent = (eventId, eventData) =>
   fetch(`${serverUrl}/${eventId}`, {
     method: "PUT",

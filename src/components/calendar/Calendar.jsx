@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import Navigation from "../navigation/Navigation.jsx";
 import Week from "../week/Week.jsx";
 import Sidebar from "../sidebar/Sidebar.jsx";
-import { generateWeekRange, getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
+import {
+  generateWeekRange,
+  getDisplayedMonth,
+  getWeekStartDate,
+} from "../../utils/dateUtils";
 import "./calendar.scss";
 
 const Calendar = ({ events, updateDisplayedEvents, weekStartDate }) => {
@@ -30,7 +34,7 @@ const Calendar = ({ events, updateDisplayedEvents, weekStartDate }) => {
 };
 
 Calendar.propTypes = {
-  weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
+  weekStartDate: PropTypes.instanceOf(Date).isRequired,
   events: PropTypes.array.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
 };

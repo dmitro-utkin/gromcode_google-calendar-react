@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { deleteEvent, updateEvent } from "../../gateway/gateway";
+import { deleteEvent, updateEvent, getEventById } from "../../gateway/gateway";
 import Modal from "../modal/Modal.jsx";
 import "./event.scss";
 
@@ -36,6 +36,7 @@ const Event = ({
 
   const handleEdit = () => {
     setIsModalOpen(true);
+    console.log("Edit event:", id);
     handleClosePopup();
   };
 
