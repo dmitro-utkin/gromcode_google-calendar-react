@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/header/Header.jsx";
 import Calendar from "./components/calendar/Calendar.jsx";
-import PropTypes from "prop-types";
 import { getEvents } from "./gateway/gateway.js";
 
 import "./common.scss";
@@ -10,10 +9,17 @@ const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
 
   const [events, setEvents] = useState([]);
-  useEffect(() => getEvents().then(setEvents), [weekStartDate]);
+  useEffect(() => {
+    getEvents().then(setEvents);
+  }, []);
 
   const addEvent = (newEvent) => {
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
+    setEvents((prevEvents) => {
+      if (!prevEvents.some(event => event.id === newEvent.id)) {
+        return [...prevEvents, newEvent];
+      }
+      return prevEvents;
+    });
   };
 
   const updateDisplayedEvents = () => {

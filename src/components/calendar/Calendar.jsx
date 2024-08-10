@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Navigation from "../navigation/Navigation.jsx";
 import Week from "../week/Week.jsx";
@@ -10,9 +10,14 @@ import {
 } from "../../utils/dateUtils";
 import "./calendar.scss";
 
-const Calendar = ({ events, color, updateDisplayedEvents, weekStartDate }) => {
+const Calendar = ({ events, color, weekStartDate, updateDisplayedEvents }) => {
+  const [month, setMonth] = useState(getDisplayedMonth(getWeekStartDate(weekStartDate)));
+
+  useEffect(() => {
+    setMonth(getDisplayedMonth(getWeekStartDate(weekStartDate)));
+  }, [weekStartDate]);
+
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-  const month = getDisplayedMonth(getWeekStartDate(weekStartDate));
 
   return (
     <section className="calendar">
@@ -37,7 +42,7 @@ const Calendar = ({ events, color, updateDisplayedEvents, weekStartDate }) => {
 Calendar.propTypes = {
   weekStartDate: PropTypes.instanceOf(Date).isRequired,
   events: PropTypes.array.isRequired,
-  updateDisplayedEvents: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default Calendar;

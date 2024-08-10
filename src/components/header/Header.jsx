@@ -18,9 +18,11 @@ const Header = ({
   const closeModal = () => setShowModal(false);
 
   const changeWeek = (days) => {
-    const newWeekStartDate = new Date(weekStartDate);
-    newWeekStartDate.setDate(newWeekStartDate.getDate() + days);
-    setWeekStartDate(newWeekStartDate);
+    setWeekStartDate(prevDate => {
+      const newWeekStartDate = new Date(prevDate);
+      newWeekStartDate.setDate(newWeekStartDate.getDate() + days);
+      return newWeekStartDate;
+    });
   };
 
   return (
