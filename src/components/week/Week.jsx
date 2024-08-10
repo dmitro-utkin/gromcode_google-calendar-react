@@ -33,7 +33,9 @@ const Week = ({ weekDates, events, month, color, updateDisplayedEvents }) => {
 Week.propTypes = {
   weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   events: PropTypes.array.isRequired,
-
+  month: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
 };
 
 export default Week;

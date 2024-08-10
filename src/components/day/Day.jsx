@@ -1,45 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Hour from "../hour/Hour.jsx";
+import PropTypes from "prop-types";
 import "./day.scss";
 
 const Day = ({
   dataDay,
   dayEvents,
-  month={month},
+  month,
   setEvents,
   updateDisplayedEvents,
   color,
 }) => {
-  const hours = Array(24)
-    .fill()
-    .map((val, index) => index);
+  const [hourlyEvents, setHourlyEvents] = useState([]);
+
+  useEffect(() => {
+    const groupEventsByHour = () => {
+      return Array(24)
+        .fill()
+        .map((_, hour) => {
+          return dayEvents
+            .filter((event) => event.dateFrom.getHours() === hour)
+            .map((event) => ({
+              ...event,
+              id: event.id.toString(),
+            }));
+        });
+    };
+
+    setHourlyEvents(groupEventsByHour());
+  }, [dayEvents]);
 
   return (
     <div className="calendar__day" data-day={dataDay}>
-      {hours.map((hour) => {
-        const hourEvents = dayEvents
-          .filter((event) => event.dateFrom.getHours() === hour)
-          .map((event) => ({
-            ...event,
-            id: event.id.toString(),
-          }));
-
-        return (
-          <Hour
-            key={dataDay + hour}
-            dataHour={hour}
-            hourEvents={hourEvents}
-            setEvents={setEvents}
-            onDelete={setEvents}
-            updateDisplayedEvents={updateDisplayedEvents}
-            dataDay={dataDay}
-            month={month}
-            color={color}
-          />
-        );
-      })}
+      {hourlyEvents.map((hourEvents, hour) => (
+        <Hour
+          key={dataDay + hour}
+          dataHour={hour}
+          hourEvents={hourEvents}
+          setEvents={setEvents}
+          updateDisplayedEvents={updateDisplayedEvents}
+          dataDay={dataDay}
+          month={month}
+          color={color}
+        />
+      ))}
     </div>
   );
+};
+
+Day.propTypes = {
+  dataDay: PropTypes.number.isRequired,
+  dayEvents: PropTypes.array.isRequired,
+  month: PropTypes.string.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default Day;

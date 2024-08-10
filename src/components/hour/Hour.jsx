@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Event from "../event/Event.jsx";
 import { formatMins } from "../../utils/dateUtils.js";
 import PropTypes from "prop-types";
@@ -11,9 +11,18 @@ const Hour = ({
   month,
   onDelete,
   dataDay,
-  color,
   updateDisplayedEvents,
 }) => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
       {hourEvents.map(({ id, dateFrom, dateTo, title, description, color }) => {
@@ -39,7 +48,7 @@ const Hour = ({
           />
         );
       })}
-      {dataHour === new Date().getHours() && (
+      {dataHour === currentTime.getHours() && (
         <TimeLine dataDay={dataDay} month={month} />
       )}
     </div>
@@ -56,6 +65,9 @@ Hour.propTypes = {
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
+  month: PropTypes.string.isRequired,
+  dataDay: PropTypes.number.isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
 };
 
 export default Hour;
