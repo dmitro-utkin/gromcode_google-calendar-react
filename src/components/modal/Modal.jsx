@@ -132,7 +132,11 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
-  events: PropTypes.object,
+  events: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired,
+  isEditMode: PropTypes.bool.isRequired,
 };
 
 export default Modal;
