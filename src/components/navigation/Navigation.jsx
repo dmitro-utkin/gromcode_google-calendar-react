@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { days } from "../../utils/dateUtils.js";
-import classnames from "classnames";
-import "./navigation.scss";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { days } from '../../utils/dateUtils.js';
+import classnames from 'classnames';
+import './navigation.scss';
 
 const Navigation = ({ weekDates }) => {
   const [today, setToday] = useState(new Date());
@@ -15,21 +15,21 @@ const Navigation = ({ weekDates }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const getClassNames = (dayDate) => {
+  const getClassNames = dayDate => {
     const isToday = dayDate.toDateString() === today.toDateString();
     return {
-      dayNameClassName: classnames("day-label__day-name", {
-        "today-name": isToday,
+      dayNameClassName: classnames('day-label__day-name', {
+        'today-name': isToday,
       }),
-      dayNumberClassName: classnames("day-label__day-number", {
-        "today-number": isToday,
+      dayNumberClassName: classnames('day-label__day-number', {
+        'today-number': isToday,
       }),
     };
   };
 
   return (
     <header className="calendar__header">
-      {weekDates.map((dayDate) => {
+      {weekDates.map(dayDate => {
         const { dayNameClassName, dayNumberClassName } = getClassNames(dayDate);
 
         return (

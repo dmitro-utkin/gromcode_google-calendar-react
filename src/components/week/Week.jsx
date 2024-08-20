@@ -1,18 +1,16 @@
-import React from "react";
-import Day from "../day/Day.jsx";
-import PropTypes from "prop-types";
-import "./week.scss";
+import React from 'react';
+import Day from '../day/Day.jsx';
+import PropTypes from 'prop-types';
+import './week.scss';
 
-const Week = ({ weekDates, events, month, color, updateDisplayedEvents }) => {  
+const Week = ({ weekDates, events, setEvents, month, color, updateDisplayedEvents }) => {
   return (
     <div className="calendar__week">
-      {weekDates.map((dayStart) => {
-        const dayEnd = new Date(dayStart.getTime()).setHours(
-          dayStart.getHours() + 24
-        );
+      {weekDates.map(dayStart => {
+        const dayEnd = new Date(dayStart.getTime()).setHours(dayStart.getHours() + 24);
 
         const dayEvents = events.filter(
-          (event) => event.dateFrom > dayStart && event.dateTo < dayEnd
+          event => event.dateFrom > dayStart && event.dateTo < dayEnd,
         );
 
         return (
@@ -20,6 +18,7 @@ const Week = ({ weekDates, events, month, color, updateDisplayedEvents }) => {
             key={dayStart.getDate()}
             dataDay={dayStart.getDate()}
             dayEvents={dayEvents}
+            setEvents={setEvents}
             month={month}
             color={color}
             updateDisplayedEvents={updateDisplayedEvents}
@@ -33,6 +32,7 @@ const Week = ({ weekDates, events, month, color, updateDisplayedEvents }) => {
 Week.propTypes = {
   weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   events: PropTypes.array.isRequired,
+  setEvents: PropTypes.func.isRequired,
   month: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,

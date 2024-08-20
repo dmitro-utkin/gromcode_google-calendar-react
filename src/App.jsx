@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Header from "./components/header/Header.jsx";
-import Calendar from "./components/calendar/Calendar.jsx";
-import { getEvents } from "./gateway/gateway.js";
+import React, { useState, useEffect } from 'react';
+import Header from './components/header/Header.jsx';
+import Calendar from './components/calendar/Calendar.jsx';
+import { getEvents } from './gateway/gateway.js';
 
-import "./common.scss";
+import './common.scss';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
@@ -13,8 +13,8 @@ const App = () => {
     getEvents().then(setEvents);
   }, []);
 
-  const addEvent = (newEvent) => {
-    setEvents((prevEvents) => {
+  const addEvent = newEvent => {
+    setEvents(prevEvents => {
       if (!prevEvents.some(event => event.id === newEvent.id)) {
         return [...prevEvents, newEvent];
       }

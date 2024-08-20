@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Hour from "../hour/Hour.jsx";
-import PropTypes from "prop-types";
-import "./day.scss";
+import React, { useState, useEffect } from 'react';
+import Hour from '../hour/Hour.jsx';
+import PropTypes from 'prop-types';
 
-const Day = ({
-  dataDay,
-  dayEvents,
-  month,
-  setEvents,
-  updateDisplayedEvents,
-  color,
-}) => {
+const Day = ({ dataDay, dayEvents, month, setEvents, updateDisplayedEvents, color }) => {
   const [hourlyEvents, setHourlyEvents] = useState([]);
 
   useEffect(() => {
@@ -19,8 +11,8 @@ const Day = ({
         .fill()
         .map((_, hour) => {
           return dayEvents
-            .filter((event) => event.dateFrom.getHours() === hour)
-            .map((event) => ({
+            .filter(event => event.dateFrom.getHours() === hour)
+            .map(event => ({
               ...event,
               id: event.id.toString(),
             }));
@@ -49,6 +41,7 @@ const Day = ({
 };
 
 Day.propTypes = {
+  setEvents: PropTypes.func.isRequired,
   dataDay: PropTypes.number.isRequired,
   dayEvents: PropTypes.array.isRequired,
   month: PropTypes.string.isRequired,

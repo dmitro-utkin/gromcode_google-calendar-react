@@ -1,44 +1,49 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import "./modal.scss";
-import { createEvent, updateEvent } from "../../gateway/gateway.js";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './modal.scss';
+import { createEvent, updateEvent } from '../../gateway/gateway.js';
+/* global alert */
 
 const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
   const [formData, setFormData] = useState({
-    title: "",
-    date: "",
-    startTime: "",
-    endTime: "",
-    description: "",
-    color: "default-color",
+    title: '',
+    date: '',
+    startTime: '',
+    endTime: '',
+    description: '',
+    color: 'default-color',
   });
 
   useEffect(() => {
     if (events) {
       setFormData({
-        title: events.title || "",
-        date: events.date || "",
-        startTime: events.startTime || "",
-        endTime: events.endTime || "",
-        description: events.description || "",
-        color: events.color || "default-color",
+        title: events.title || '',
+        date: events.date || '',
+        startTime: events.startTime || '',
+        endTime: events.endTime || '',
+        description: events.description || '',
+        color: events.color || 'default-color',
       });
     }
   }, [events]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
+
+    if (!formData.date || !formData.startTime || !formData.endTime) {
+      alert('Invalid time or date value');
+      return;
+    }
+
     const updatedEvent = {
       title: formData.title,
       description: formData.description,
-      dateFrom: new Date(
-        formData.date + "T" + formData.startTime
-      ).toISOString(),
-      dateTo: new Date(formData.date + "T" + formData.endTime).toISOString(),
+      dateFrom: new Date(formData.date + 'T' + formData.startTime),
+      dateTo: new Date(formData.date + 'T' + formData.endTime).toISOString(),
       color: formData.color,
     };
 
@@ -48,8 +53,8 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
           updateDisplayedEvents();
           onClose();
         })
-        .catch((error) => {
-          console.error("Error updating event:", error);
+        .catch(error => {
+          console.error('Error updating event:', error);
         });
     } else {
       createEvent(updatedEvent)
@@ -57,8 +62,8 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
           updateDisplayedEvents();
           onClose();
         })
-        .catch((error) => {
-          console.error("Error creating event:", error);
+        .catch(error => {
+          console.error('Error creating event:', error);
         });
     }
   };
@@ -110,17 +115,9 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
               value={formData.description}
               onChange={handleChange}
             ></textarea>
-            <input
-              type="hidden"
-              name="color"
-              value={formData.color}
-            />
-            <button
-              type="submit"
-              className="event-form__submit-btn"
-              onClick={handleSubmit}
-            >
-              {isEditMode ? "Update" : "Create"}
+            <input type="hidden" name="color" value={formData.color} />
+            <button type="submit" className="event-form__submit-btn" onClick={handleSubmit}>
+              {isEditMode ? 'Update' : 'Create'}
             </button>
           </form>
         </div>
@@ -132,10 +129,7 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
-  events: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array
-  ]).isRequired,
+  events: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
   isEditMode: PropTypes.bool.isRequired,
 };
 

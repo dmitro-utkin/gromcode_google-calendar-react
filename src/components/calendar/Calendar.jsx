@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import Navigation from "../navigation/Navigation.jsx";
-import Week from "../week/Week.jsx";
-import Sidebar from "../sidebar/Sidebar.jsx";
-import {
-  generateWeekRange,
-  getDisplayedMonth,
-  getWeekStartDate,
-} from "../../utils/dateUtils";
-import "./calendar.scss";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Navigation from '../navigation/Navigation.jsx';
+import Week from '../week/Week.jsx';
+import Sidebar from '../sidebar/Sidebar.jsx';
+import { generateWeekRange, getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
+import './calendar.scss';
 
-const Calendar = ({ events, color, weekStartDate, updateDisplayedEvents }) => {
+const Calendar = ({ events, setEvents, color, weekStartDate, updateDisplayedEvents }) => {
   const [month, setMonth] = useState(getDisplayedMonth(getWeekStartDate(weekStartDate)));
 
   useEffect(() => {
@@ -29,6 +25,7 @@ const Calendar = ({ events, color, weekStartDate, updateDisplayedEvents }) => {
           <Week
             weekDates={weekDates}
             events={events}
+            setEvents={setEvents}
             month={month}
             color={color}
             updateDisplayedEvents={updateDisplayedEvents}
@@ -41,7 +38,9 @@ const Calendar = ({ events, color, weekStartDate, updateDisplayedEvents }) => {
 
 Calendar.propTypes = {
   weekStartDate: PropTypes.instanceOf(Date).isRequired,
+  updateDisplayedEvents: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
+  setEvents: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
 };
 

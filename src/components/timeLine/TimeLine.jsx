@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import "./timeLine.scss";
-import { getDisplayedMonth, getWeekStartDate } from "../../utils/dateUtils";
-
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './timeLine.scss';
+import { getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
 
 const MILLISECONDS_IN_A_MINUTE = 60000;
 
@@ -28,12 +27,7 @@ const TimeLine = ({ dataDay, month }) => {
     return null;
   }
   return (
-    <div
-      style={style}
-      className="time-line"
-      data-day={dataDay}
-      data-month={month}
-    >
+    <div style={style} className="time-line" data-day={dataDay} data-month={month}>
       <div className="time-line__circle"></div>
       <div className="time-line__line"></div>
     </div>
@@ -41,7 +35,8 @@ const TimeLine = ({ dataDay, month }) => {
 };
 
 TimeLine.propTypes = {
-  dataDay: PropTypes.number.isRequired
+  dataDay: PropTypes.number.isRequired,
+  month: PropTypes.string.isRequired,
 };
 
 export default TimeLine;

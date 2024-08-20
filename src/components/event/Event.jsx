@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { deleteEvent, getEventById, updateEvent } from "../../gateway/gateway";
-import Modal from "../modal/Modal.jsx";
-import PropTypes from "prop-types";
-import "./event.scss";
+import React, { useState } from 'react';
+import { deleteEvent, getEventById, updateEvent } from '../../gateway/gateway';
+import Modal from '../modal/Modal.jsx';
+import PropTypes from 'prop-types';
+import './event.scss';
 
 const Event = ({
   id,
@@ -18,7 +18,7 @@ const Event = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventData, setEventData] = useState(null);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
-  const [eventColor, setEventColor] = useState(color || "default-color");
+  const [eventColor, setEventColor] = useState(color || 'default-color');
 
   const eventStyle = {
     height,
@@ -35,7 +35,7 @@ const Event = ({
       handleClosePopup();
       updateDisplayedEvents();
     } catch (error) {
-      console.error("Failed to delete event:", error);
+      console.error('Failed to delete event:', error);
     }
   };
 
@@ -46,7 +46,7 @@ const Event = ({
       setIsModalOpen(true);
       handleClosePopup();
     } catch (error) {
-      console.error("Failed to fetch event:", error);
+      console.error('Failed to fetch event:', error);
     }
   };
 
@@ -59,7 +59,7 @@ const Event = ({
     setIsColorPickerOpen(!isColorPickerOpen);
   };
 
-  const handleColorChange = async (color) => {
+  const handleColorChange = async color => {
     try {
       const event = await getEventById(id);
       const updatedEvent = { ...event, color };
@@ -69,7 +69,7 @@ const Event = ({
       handleClosePopup();
       updateDisplayedEvents();
     } catch (error) {
-      console.error("Failed to update event color:", error);
+      console.error('Failed to update event color:', error);
     }
   };
 
@@ -88,19 +88,13 @@ const Event = ({
             </button>
             <div className="popup__actions">
               <div className="events-btn">
-                <button
-                  className="button events-btn__edit-btn"
-                  onClick={handleEdit}
-                >
+                <button className="button events-btn__edit-btn" onClick={handleEdit}>
                   <i className="fas fa-pen"></i>
                   Edit
                 </button>
               </div>
               <div className="events-btn">
-                <button
-                  className="button events-btn__color-btn"
-                  onClick={toggleColorPicker}
-                >
+                <button className="button events-btn__color-btn" onClick={toggleColorPicker}>
                   <i className="fas fa-palette"></i>
                   Color
                 </button>
@@ -108,28 +102,25 @@ const Event = ({
                   <div className="colors">
                     <button
                       className="colors__item aqua"
-                      onClick={() => handleColorChange("aqua")}
+                      onClick={() => handleColorChange('aqua')}
                     ></button>
                     <button
                       className="colors__item greenyellow"
-                      onClick={() => handleColorChange("greenyellow")}
+                      onClick={() => handleColorChange('greenyellow')}
                     ></button>
                     <button
                       className="colors__item orange"
-                      onClick={() => handleColorChange("orange")}
+                      onClick={() => handleColorChange('orange')}
                     ></button>
                     <button
                       className="colors__item hotpink"
-                      onClick={() => handleColorChange("hotpink")}
+                      onClick={() => handleColorChange('hotpink')}
                     ></button>
                   </div>
                 )}
               </div>
               <div className="events-btn">
-                <button
-                  className="button events-btn__delete-btn"
-                  onClick={handleDelete}
-                >
+                <button className="button events-btn__delete-btn" onClick={handleDelete}>
                   <i className="fas fa-trash"></i>
                   Delete
                 </button>

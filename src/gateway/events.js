@@ -14,7 +14,6 @@ const events = [
     dateFrom: new Date(2024, 7, 7, 10, 30),
     dateTo: new Date(2024, 7, 7, 11, 30),
   },
-
 ];
 
 export default events;

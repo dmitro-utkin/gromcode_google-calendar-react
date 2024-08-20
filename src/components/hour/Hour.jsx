@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Event from "../event/Event.jsx";
-import { formatMins } from "../../utils/dateUtils.js";
-import PropTypes from "prop-types";
-import "./hour.scss";
-import TimeLine from "../timeLine/TimeLine.jsx";
+import React, { useState, useEffect } from 'react';
+import Event from '../event/Event.jsx';
+import { formatMins } from '../../utils/dateUtils.js';
+import PropTypes from 'prop-types';
+import './hour.scss';
+import TimeLine from '../timeLine/TimeLine.jsx';
 
-const Hour = ({
-  dataHour,
-  hourEvents,
-  month,
-  onDelete,
-  dataDay,
-  updateDisplayedEvents,
-}) => {
+const Hour = ({ dataHour, hourEvents, month, dataDay, updateDisplayedEvents }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -26,12 +19,8 @@ const Hour = ({
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
       {hourEvents.map(({ id, dateFrom, dateTo, title, description, color }) => {
-        const eventStart = `${dateFrom.getHours()}:${formatMins(
-          dateFrom.getMinutes()
-        )}`;
-        const eventEnd = `${dateTo.getHours()}:${formatMins(
-          dateTo.getMinutes()
-        )}`;
+        const eventStart = `${dateFrom.getHours()}:${formatMins(dateFrom.getMinutes())}`;
+        const eventEnd = `${dateTo.getHours()}:${formatMins(dateTo.getMinutes())}`;
 
         return (
           <Event
@@ -43,14 +32,11 @@ const Hour = ({
             title={title}
             description={description}
             color={color}
-            onDelete={onDelete}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         );
       })}
-      {dataHour === currentTime.getHours() && (
-        <TimeLine dataDay={dataDay} month={month} />
-      )}
+      {dataHour === currentTime.getHours() && <TimeLine dataDay={dataDay} month={month} />}
     </div>
   );
 };
@@ -63,7 +49,7 @@ Hour.propTypes = {
       dateFrom: PropTypes.instanceOf(Date).isRequired,
       dateTo: PropTypes.instanceOf(Date).isRequired,
       title: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
   month: PropTypes.string.isRequired,
   dataDay: PropTypes.number.isRequired,
