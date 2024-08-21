@@ -39,10 +39,12 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
       return;
     }
 
+    
+
     const updatedEvent = {
       title: formData.title,
       description: formData.description,
-      dateFrom: new Date(formData.date + 'T' + formData.startTime),
+      dateFrom: new Date(formData.date + 'T' + formData.startTime).toISOString(),
       dateTo: new Date(formData.date + 'T' + formData.endTime).toISOString(),
       color: formData.color,
     };
