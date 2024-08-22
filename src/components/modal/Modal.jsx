@@ -16,11 +16,17 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
 
   useEffect(() => {
     if (events) {
+      const eventStartDateTime = new Date(events.dateFrom);
+      const eventEndDateTime = new Date(events.dateTo);  
+      const eventDate = eventStartDateTime.toLocaleDateString('en-CA');
+      const startTime = eventStartDateTime.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'});
+      const endTime = eventEndDateTime.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'});
+  
       setFormData({
         title: events.title || '',
-        date: events.date || '',
-        startTime: events.startTime || '',
-        endTime: events.endTime || '',
+        date: eventDate ,
+        startTime: startTime ,
+        endTime: endTime ,
         description: events.description || '',
         color: events.color || 'default-color',
       });
@@ -39,13 +45,11 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
       return;
     }
 
-    
-
     const updatedEvent = {
       title: formData.title,
       description: formData.description,
-      dateFrom: new Date(formData.date + 'T' + formData.startTime).toISOString(),
-      dateTo: new Date(formData.date + 'T' + formData.endTime).toISOString(),
+      dateFrom: new Date(formData.date + 'T' + formData.startTime),
+      dateTo: new Date(formData.date + 'T' + formData.endTime),
       color: formData.color,
     };
 
@@ -127,6 +131,7 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
     </div>
   );
 };
+
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,

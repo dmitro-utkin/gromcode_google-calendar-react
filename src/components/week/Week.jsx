@@ -10,7 +10,7 @@ const Week = ({ weekDates, events, setEvents, month, color, updateDisplayedEvent
         const dayEnd = new Date(dayStart.getTime() + 24 * 60 * 60 * 1000);
 
         const dayEvents = events.filter(
-          event => event.dateFrom > dayStart && event.dateTo < dayEnd,
+          event => event.dateFrom >= dayStart && event.dateTo <= dayEnd,
         );
 
         return (
