@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './timeLine.scss';
 import { getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
+import './timeLine.scss';
 
 const MILLISECONDS_IN_A_MINUTE = 60000;
 
@@ -28,8 +28,8 @@ const TimeLine = ({ dataDay, month }) => {
   }
   return (
     <div style={style} className="time-line" data-day={dataDay} data-month={month}>
-      <div className="time-line__circle"></div>
-      <div className="time-line__line"></div>
+      <div className="time-line__circle" />
+      <div className="time-line__line" />
     </div>
   );
 };

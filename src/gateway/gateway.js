@@ -21,7 +21,7 @@ export const getEvents = () =>
     return res.json().then(events =>
       events.map(event => ({
         ...event,
-        id: Number(event.id), // Перетворення id в число
+        id: +event.id,
         dateFrom: new Date(event.dateFrom),
         dateTo: new Date(event.dateTo),
       })),
@@ -35,7 +35,7 @@ export const getEventById = eventId =>
     }
     return response.json().then(event => ({
       ...event,
-      id: Number(event.id), // Перетворення id в число
+      id: +event.id,
       dateFrom: new Date(event.dateFrom),
       dateTo: new Date(event.dateTo),
     }));
@@ -59,6 +59,6 @@ export const deleteEvent = eventId =>
     method: 'DELETE',
   }).then(response => {
     if (!response.ok) {
-      throw new Error(`Internal Server Error. Can't display events`);
+      throw new Error(`Internal Server Error. Can't delete event`);
     }
   });
