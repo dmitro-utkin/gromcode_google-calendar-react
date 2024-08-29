@@ -89,13 +89,13 @@ const Event = ({
             <div className="popup__actions">
               <div className="events-btn">
                 <button className="button events-btn__edit-btn" onClick={handleEdit}>
-                  <i className="fas fa-pen"></i>
+                  <i className="fas fa-pen" />
                   Edit
                 </button>
               </div>
               <div className="events-btn">
                 <button className="button events-btn__color-btn" onClick={toggleColorPicker}>
-                  <i className="fas fa-palette"></i>
+                  <i className="fas fa-palette" />
                   Color
                 </button>
                 {isColorPickerOpen && (
@@ -103,25 +103,25 @@ const Event = ({
                     <button
                       className="colors__item aqua"
                       onClick={() => handleColorChange('aqua')}
-                    ></button>
+                    />
                     <button
                       className="colors__item greenyellow"
                       onClick={() => handleColorChange('greenyellow')}
-                    ></button>
+                    />
                     <button
                       className="colors__item orange"
                       onClick={() => handleColorChange('orange')}
-                    ></button>
+                    />
                     <button
                       className="colors__item hotpink"
                       onClick={() => handleColorChange('hotpink')}
-                    ></button>
+                    />
                   </div>
                 )}
               </div>
               <div className="events-btn">
                 <button className="button events-btn__delete-btn" onClick={handleDelete}>
-                  <i className="fas fa-trash"></i>
+                  <i className="fas fa-trash" />
                   Delete
                 </button>
               </div>

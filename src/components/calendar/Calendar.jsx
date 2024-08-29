@@ -6,7 +6,7 @@ import Sidebar from '../sidebar/Sidebar.jsx';
 import { generateWeekRange, getDisplayedMonth, getWeekStartDate } from '../../utils/dateUtils';
 import './calendar.scss';
 
-const Calendar = ({ events, setEvents, color, weekStartDate, updateDisplayedEvents }) => {
+const Calendar = ({ events, weekStartDate, updateDisplayedEvents }) => {
   const [month, setMonth] = useState(getDisplayedMonth(getWeekStartDate(weekStartDate)));
 
   useEffect(() => {
@@ -25,9 +25,7 @@ const Calendar = ({ events, setEvents, color, weekStartDate, updateDisplayedEven
           <Week
             weekDates={weekDates}
             events={events}
-            setEvents={setEvents}
             month={month}
-            color={color}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         </div>
@@ -40,8 +38,6 @@ Calendar.propTypes = {
   weekStartDate: PropTypes.instanceOf(Date).isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
-  setEvents: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
 };
 
 export default Calendar;

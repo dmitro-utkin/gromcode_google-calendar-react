@@ -3,11 +3,13 @@ import Day from '../day/Day.jsx';
 import PropTypes from 'prop-types';
 import './week.scss';
 
-const Week = ({ weekDates, events, setEvents, month, color, updateDisplayedEvents }) => {
+const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
+
+const Week = ({ weekDates, events, month, updateDisplayedEvents }) => {
   return (
     <div className="calendar__week">
       {weekDates.map(dayStart => {
-        const dayEnd = new Date(dayStart.getTime() + 24 * 60 * 60 * 1000);
+        const dayEnd = new Date(dayStart.getTime() + MILLISECONDS_IN_A_DAY);
 
         const dayEvents = events.filter(
           event => event.dateFrom >= dayStart && event.dateTo <= dayEnd,
@@ -18,9 +20,7 @@ const Week = ({ weekDates, events, setEvents, month, color, updateDisplayedEvent
             key={dayStart.getDate()}
             dataDay={dayStart.getDate()}
             dayEvents={dayEvents}
-            setEvents={setEvents}
             month={month}
-            color={color}
             updateDisplayedEvents={updateDisplayedEvents}
           />
         );
@@ -32,9 +32,7 @@ const Week = ({ weekDates, events, setEvents, month, color, updateDisplayedEvent
 Week.propTypes = {
   weekDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   events: PropTypes.array.isRequired,
-  setEvents: PropTypes.func.isRequired,
   month: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
 };
 

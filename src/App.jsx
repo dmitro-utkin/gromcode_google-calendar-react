@@ -10,18 +10,9 @@ const App = () => {
 
   const [events, setEvents] = useState([]);
   useEffect(() => {
-    getEvents().then(setEvents);
+    updateDisplayedEvents();
   }, []);
-
-  const addEvent = newEvent => {
-    setEvents(prevEvents => {
-      if (!prevEvents.some(event => event.id === newEvent.id)) {
-        return [...prevEvents, newEvent];
-      }
-      return prevEvents;
-    });
-  };
-
+  
   const updateDisplayedEvents = () => {
     getEvents().then(setEvents);
   };
@@ -31,17 +22,12 @@ const App = () => {
       <Header
         weekStartDate={weekStartDate}
         setWeekStartDate={setWeekStartDate}
-        addEvent={addEvent}
         events={events}
-        setEvents={setEvents}
         updateDisplayedEvents={updateDisplayedEvents}
       />
       <Calendar
         weekStartDate={weekStartDate}
         events={events}
-        color="blue"
-        addEvent={addEvent}
-        setEvents={setEvents}
         updateDisplayedEvents={updateDisplayedEvents}
       />
     </>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
 import { createEvent, updateEvent } from '../../gateway/gateway.js';
-/* global alert */
 
 const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
   const [formData, setFormData] = useState({
@@ -25,8 +24,8 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
       setFormData({
         title: events.title || '',
         date: eventDate ,
-        startTime: startTime ,
-        endTime: endTime ,
+        startTime,
+        endTime,
         description: events.description || '',
         color: events.color || 'default-color',
       });
@@ -40,10 +39,6 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (!formData.date || !formData.startTime || !formData.endTime) {
-      alert('Invalid time or date value');
-      return;
-    }
 
     const updatedEvent = {
       title: formData.title,
@@ -120,7 +115,7 @@ const Modal = ({ onClose, updateDisplayedEvents, events, isEditMode }) => {
               className="event-form__field"
               value={formData.description}
               onChange={handleChange}
-            ></textarea>
+            />
             <input type="hidden" name="color" value={formData.color} />
             <button type="submit" className="event-form__submit-btn" onClick={handleSubmit}>
               {isEditMode ? 'Update' : 'Create'}
