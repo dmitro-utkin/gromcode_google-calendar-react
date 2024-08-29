@@ -2,21 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Hour from '../hour/Hour.jsx';
 import PropTypes from 'prop-types';
 
-const Day = ({ dataDay, dayEvents, month, setEvents, updateDisplayedEvents, color }) => {
+const Day = ({ dataDay, dayEvents, month, updateDisplayedEvents }) => {
   const [hourlyEvents, setHourlyEvents] = useState([]);
 
   useEffect(() => {
     const groupEventsByHour = () => {
-      return Array(24)
-        .fill()
-        .map((_, hour) => {
-          return dayEvents
-            .filter(event => event.dateFrom.getHours() === hour)
-            .map(event => ({
-              ...event,
-              id: event.id.toString(),
-            }));
-        });
+      return dayEvents.reduce((eventsByHour, event) => {
+        const hour = event.dateFrom.getHours();
+        eventsByHour[hour].push({ ...event, id: event.id.toString() });
+        return eventsByHour;
+      }, new Array(24).fill(null).map(() => []));
     };
 
     setHourlyEvents(groupEventsByHour());
@@ -29,11 +24,9 @@ const Day = ({ dataDay, dayEvents, month, setEvents, updateDisplayedEvents, colo
           key={dataDay + hour}
           dataHour={hour}
           hourEvents={hourEvents}
-          setEvents={setEvents}
           updateDisplayedEvents={updateDisplayedEvents}
           dataDay={dataDay}
           month={month}
-          color={color}
         />
       ))}
     </div>
@@ -41,12 +34,10 @@ const Day = ({ dataDay, dayEvents, month, setEvents, updateDisplayedEvents, colo
 };
 
 Day.propTypes = {
-  setEvents: PropTypes.func.isRequired,
   dataDay: PropTypes.number.isRequired,
   dayEvents: PropTypes.array.isRequired,
   month: PropTypes.string.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
 };
 
 export default Day;

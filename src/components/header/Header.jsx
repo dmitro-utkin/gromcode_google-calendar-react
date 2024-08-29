@@ -7,8 +7,8 @@ import './header.scss';
 const Header = ({
   weekStartDate,
   setWeekStartDate,
-  addEvent,
-  setEvents,
+  // addEvent,
+  // setEvents,
   events,
   updateDisplayedEvents,
 }) => {
@@ -57,9 +57,9 @@ const Header = ({
       {showModal && (
         <Modal
           onClose={closeModal}
-          addEvent={addEvent}
+          // addEvent={addEvent}
           events={events}
-          setEvents={setEvents}
+          // setEvents={setEvents}
           updateDisplayedEvents={updateDisplayedEvents}
           isEditMode={false}
         />
@@ -71,8 +71,8 @@ const Header = ({
 Header.propTypes = {
   weekStartDate: PropTypes.instanceOf(Date).isRequired,
   setWeekStartDate: PropTypes.func.isRequired,
-  addEvent: PropTypes.func.isRequired,
-  setEvents: PropTypes.func.isRequired,
+  // addEvent: PropTypes.func.isRequired,
+  // setEvents: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
   updateDisplayedEvents: PropTypes.func.isRequired,
 };
