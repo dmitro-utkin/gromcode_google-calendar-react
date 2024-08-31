@@ -7,8 +7,6 @@ import './header.scss';
 const Header = ({
   weekStartDate,
   setWeekStartDate,
-  // addEvent,
-  // setEvents,
   events,
   updateDisplayedEvents,
 }) => {
@@ -57,9 +55,7 @@ const Header = ({
       {showModal && (
         <Modal
           onClose={closeModal}
-          // addEvent={addEvent}
           events={events}
-          // setEvents={setEvents}
           updateDisplayedEvents={updateDisplayedEvents}
           isEditMode={false}
         />

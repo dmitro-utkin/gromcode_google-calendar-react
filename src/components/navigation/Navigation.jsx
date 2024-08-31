@@ -4,13 +4,15 @@ import { days } from '../../utils/dateUtils.js';
 import classnames from 'classnames';
 import './navigation.scss';
 
+const ONE_DAY_IN_MS = 86400000;
+
 const Navigation = ({ weekDates }) => {
   const [today, setToday] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
       setToday(new Date());
-    }, 86400000);
+    }, ONE_DAY_IN_MS);
 
     return () => clearInterval(timer);
   }, []);
